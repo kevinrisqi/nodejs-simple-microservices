@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "5049407c-2ea2-49ad-bbb8-d46aa4f95681",
+		"name": "Service HP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14644341"
+	},
+	"item": [
+		{
+			"name": "Get All Teknisi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/teknisi",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"teknisi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/user",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Kerusakan",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/kerusakan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"kerusakan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Teknisi By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/teknisi/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"teknisi",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/user/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Kerusakan By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/kerusakan/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"kerusakan",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Teknisi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nama\": \"Satrio\",\n    \"spesialis\": \"Oppo\",\n    \"platform\": \"Android\",\n    \"jumlah_antrian\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/addTeknisi",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addTeknisi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nama\": \"Dono\",\n    \"alamat\": \"Jl Melati\",\n    \"email\": \"dono@gmail.com\",\n    \"nomer_hp\": \"089768868689\",\n    \"brand_hp\": \"Xiaomi\",\n    \"keluhan\": \"Tidak nyala\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/addUser",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Kerusakan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"jenis_kerusakan\": \"Bootloop\",\n    \"lama_pengerjaan\": 120,\n    \"harga\": 200000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/addKerusakan",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addKerusakan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Teknisi",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nama\": \"Gunawan\",\n    \"spesialis\": \"Samsung\",\n    \"platform\": \"Android\",\n    \"jumlah_antrian\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/updateTeknisi/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"updateTeknisi",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Kerusakan",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"jenis_kerusakan\": \"LCD Pecah\",\n        \"lama_pengerjaan\": 180,\n        \"harga\": 400000\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/updateKerusakan/3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"updateKerusakan",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nama\": \"Dino\",\n    \"alamat\": \"Jl Kenanga\",\n    \"email\": \"dino@gmail.com\",\n    \"nomer_hp\": \"0888489434\",\n    \"brand_hp\": \"Oppo\",\n    \"keluhan\": \"Touchscreen tidak bisa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/updateUser/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"updateUser",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Teknisi",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/deleteTeknisi/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"deleteTeknisi",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/deleteUser/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"deleteUser",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Kerusakan",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/deleteKerusakan/3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"deleteKerusakan",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
