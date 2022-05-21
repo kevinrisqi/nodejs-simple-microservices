@@ -1,4 +1,4 @@
-const kerusakan = require('./kerusakan');
+const kerusakan= require('../controller/kerusakan');
 
 async function routes(fastify) {
     fastify.get('/kerusakan', kerusakan.getAllKerusakan);

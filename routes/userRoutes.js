@@ -1,4 +1,4 @@
-const user = require('./user');
+const user = require('../controller/user');
 
 async function routes(fastify) {
     fastify.get('/user', user.getAllUser);

@@ -1,4 +1,5 @@
 const { executeQuery } = require("../config/db");
+const teknisiModel = require('../model/teknisiModel');
 
 const getAllKerusakan = async (req, reply) => {
   try {

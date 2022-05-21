@@ -1,4 +1,4 @@
-const teknisi = require('./teknisi');
+const teknisi = require('../controller/teknisi');
 
 async function routes(fastify) {
     fastify.get('/teknisi', teknisi.getAllTeknisi);

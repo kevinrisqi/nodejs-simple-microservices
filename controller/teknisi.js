@@ -1,8 +1,9 @@
 const { executeQuery } = require("../config/db");
+const teknisiModel = require('../model/teknisiModel');
 
 const getAllTeknisi = async (req, reply) => {
   try {
-    let teknisiData = await executeQuery("SELECT * FROM teknisi", []);
+    let teknisiData = await teknisiModel.findAll();
     reply.status(200).send(teknisiData);
   } catch (error) {
     reply.status(500).send(error);
