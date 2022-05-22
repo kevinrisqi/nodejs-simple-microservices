@@ -1,4 +1,3 @@
-const { executeQuery } = require("../config/db");
 const kerusakanModel = require("../model/kerusakanModel");
 
 const getAllKerusakan = async (req, reply) => {

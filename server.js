@@ -3,10 +3,13 @@ const fastify = require("fastify")();
 const teknisiRoutes = require('./routes/teknisiRoutes');
 const userRoutes = require('./routes/userRoutes');
 const kerusakanRoutes = require('./routes/kerusakanRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 fastify.register(teknisiRoutes);
 fastify.register(userRoutes);
 fastify.register(kerusakanRoutes);
+fastify.register(orderRoutes);
+
 
 // create server
 const startServer = async () => {

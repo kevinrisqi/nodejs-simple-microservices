@@ -1,4 +1,3 @@
-const { executeQuery } = require("../config/db");
 const userModel = require("../model/userModel");
 
 const getAllUser = async (req, reply) => {

@@ -1,4 +1,3 @@
-const { executeQuery } = require("../config/db");
 const teknisiModel = require('../model/teknisiModel');
 
 const getAllTeknisi = async (req, reply) => {
