@@ -13,9 +13,7 @@ const getAllTeknisi = async (req, reply) => {
 const getTeknisiById = async (req, reply) => {
   let id = req.params.id;
   try {
-    let teknisiData = await executeQuery("SELECT * FROM teknisi where id=?", [
-      id,
-    ]);
+    let teknisiData = await teknisiModel.findOne(id);
     reply.status(200).send(teknisiData);
   } catch (error) {
     reply.status(500).send(error);
@@ -25,9 +23,7 @@ const getTeknisiById = async (req, reply) => {
 const deleteTeknisiById = async (req, reply) => {
   let id = req.params.id;
   try {
-    let teknisiData = await executeQuery("DELETE FROM teknisi where id=?", [
-      id,
-    ]);
+    let teknisiData = teknisiModel.deleteOne(id);
     reply.status(200).send(teknisiData);
   } catch (error) {
     reply.status(500).send(error);
@@ -36,11 +32,8 @@ const deleteTeknisiById = async (req, reply) => {
 
 const addTeknisi = async (req, reply) => {
   try {
-    const { nama, spesialis, platform, jumlah_antrian } = req.body;
-    let teknisiData = await executeQuery(
-      "INSERT INTO teknisi(nama, spesialis, platform, jumlah_antrian) VALUES (?,?,?,?)",
-      [nama, spesialis, platform, jumlah_antrian]
-    );
+    const payload = req.body;
+    let teknisiData = await teknisiModel.add(payload);
     reply.status(200).send(teknisiData);
   } catch (error) {
     reply.status(500).send(error);
@@ -50,11 +43,8 @@ const addTeknisi = async (req, reply) => {
 const updateTeknisi = async (req, reply) => {
     let id = req.params.id;
   try {
-    const { nama, spesialis, platform, jumlah_antrian } = req.body;
-    let teknisiData = await executeQuery(
-      `UPDATE teknisi SET nama=?, spesialis=?, platform=?, jumlah_antrian=? WHERE id=${id}`,
-      [nama, spesialis, platform, jumlah_antrian]
-    );
+    let payload = req.body;
+    let teknisiData = await teknisiModel.update(id,payload);
     reply.status(200).send(teknisiData);
   } catch (error) {
     reply.status(500).send(error);
