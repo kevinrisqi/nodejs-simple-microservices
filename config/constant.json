@@ -1,7 +1,7 @@
 {
     "DB_HOST":"localhost",
-    "DB_USER":"root",
-    "DB_PASSWORD":"",
+    "DB_USER":"kevin",
+    "DB_PASSWORD":"kinglord",
     "DB_DATABASE":"db_service_hp",
     "DB_PORT":"3306"
 }

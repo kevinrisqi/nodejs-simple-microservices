@@ -20,7 +20,7 @@ const ios = [
     "Iphone 13",
     "Iphone XR",
     "Ipad",
-];
+].toLowerCase;
 
 const add = () => {
     let result = executeQuery(
@@ -29,31 +29,46 @@ const add = () => {
 };
 
 const test = async () => {
-    let getPlatform = await executeQuery("SELECT * FROM user WHERE id = ?", [1]);
+    let getBrand = await executeQuery("SELECT * FROM user WHERE id = ?", [1]);
     // // if (getPlatform.)
 
-    // //TODO: Create Object
-    const brand = [
-        { name: "samsung", platform: "android", origin: "south korea" },
-    ];
+    //TODO: Dummy Object
+    // const brand = [
+    //     { brand_hp: "samsung", platform: "android", origin: "south korea" },
+    //     { brand_hp: "iphone 7", platform: "ios", origin: "United States" }
+    // ];
 
-    // // let result = brand[0];
+    //TODO: Mapping
+    let brand = getBrand.map(res => {
+        return res.brand_hp.toLowerCase();
+    });
 
-    // //TODO: Mapping
-    const platform = new Map(
-        brand.map(object => {
-            return [object.brand_hp, object.id];
-        }),
-    );
+    // let brand = ['ipad'];
+
+    //TODO: Define platform
+    let platform = '';
+    
+    // for (let i = 0; i < ios.length; i++) {
+    //     if (brand.includes(ios[i])){
+    //         platform = 'IOS';
+    //     } else {
+    //         platform = 'Android';
+    //     }
+    // }
+    
+
+    // let platform = brand.brand_hp;
 
     // let result = getPlatform;
     // let result = status[1] + ' ' + platform[1];
-    return platform;
+    return brand;
 
 
 };
 
-console.log(test());
+test().then(res => {
+    console.log(res);
+})
 
 module.exports = {
     add,

@@ -32,4 +32,16 @@ const executeQuery = (query, arrayParams) => {
     });
 }
 
+// const executeQuery1 = new Promise ((resolve, reject) => {
+//     pool.query(query, arrayParams, (err,data) => {
+//         if(err) {
+//             console.log('Query has an error !');
+//             reject(err);
+//         }
+//         resolve(data)
+//     })
+// })
+
+// executeQuery1.then(response => console.log('OK:' + response));
+
 module.exports = { executeQuery };
