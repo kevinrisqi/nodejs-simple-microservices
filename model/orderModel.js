@@ -2,10 +2,6 @@ const { executeQuery } = require("../config/db");
 
 const status = { 1: "Menunggu antrian", 2: "Sedang dikerjakan", 3: "Selesai" };
 
-const platform = { 1: "Android", 2: "IOS" };
-
-// console.log('tes');
-
 const ios = [
     "Iphone 1",
     "Iphone 2",
@@ -20,7 +16,7 @@ const ios = [
     "Iphone 13",
     "Iphone XR",
     "Ipad",
-].toLowerCase;
+];
 
 const add = () => {
     let result = executeQuery(
@@ -29,8 +25,7 @@ const add = () => {
 };
 
 const test = async () => {
-    let getBrand = await executeQuery("SELECT * FROM user WHERE id = ?", [1]);
-    // // if (getPlatform.)
+    let getBrand = await executeQuery("SELECT * FROM user WHERE id = ?", [5]);
 
     //TODO: Dummy Object
     // const brand = [
@@ -48,20 +43,24 @@ const test = async () => {
     //TODO: Define platform
     let platform = '';
     
-    // for (let i = 0; i < ios.length; i++) {
-    //     if (brand.includes(ios[i])){
-    //         platform = 'IOS';
-    //     } else {
-    //         platform = 'Android';
-    //     }
-    // }
+    for (let i = 0; i < ios.length; i++) {
+        if (brand == ios[i].toLowerCase()){
+            platform = "IOS";
+        } else {
+            platform = "Android";
+        }
+
+        // TODO: Test temporary data
+        let temp = [];
+        temp = ios[i].toLowerCase();
+        console.log(temp);
+    }
+
+    // console.log(brand + " " + ios[6].toLowerCase());
+    // console.log(brand == ios[6].toLowerCase());
+    console.log(ios.length);
     
-
-    // let platform = brand.brand_hp;
-
-    // let result = getPlatform;
-    // let result = status[1] + ' ' + platform[1];
-    return brand;
+    return platform;
 
 
 };
