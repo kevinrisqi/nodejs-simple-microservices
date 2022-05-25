@@ -50,15 +50,16 @@ const ios = [
 ];
 
 const add = (payload) => {
-    let result = executeQuery(
-        "INSERT INTO order (nama, alamat, email, nomer_hp, brand_hp, platform, keluhan, antrian,status) VALUES (?,?,?,?,?,?,?,?,?)", [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.platform, payload.keluhan, payload.antrian, payload.status]
-    );
-    return result;
+    
 };
 
 const definePlatform = async () => {
 
-    let getBrand = await executeQuery("SELECT * FROM user WHERE id = ?", [5]);
+    let result = executeQuery(
+        "INSERT INTO order (nama, alamat, email, nomer_hp, brand_hp, platform, keluhan, antrian,status) VALUES (?,?,?,?,?,?,?,?,?)", [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.platform, payload.keluhan, payload.antrian, payload.status]
+    );
+
+    let getBrand = await executeQuery("SELECT MAX(id) FROM order",[]);
 
     //TODO: Dummy Object
     // const brand = [
