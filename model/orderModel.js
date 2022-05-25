@@ -33,6 +33,8 @@ const test = async () => {
     //     { brand_hp: "iphone 7", platform: "ios", origin: "United States" }
     // ];
 
+    console.log(getBrand);
+
     //TODO: Mapping
     let brand = getBrand.map(res => {
         return res.brand_hp.toLowerCase();
@@ -41,24 +43,8 @@ const test = async () => {
     // let brand = ['ipad'];
 
     //TODO: Define platform
-    let platform = '';
+    const platform = ios.find(item => brand[0] == item.toLowerCase()) ? 'IOS' : 'Android';
     
-    for (let i = 0; i < ios.length; i++) {
-        if (brand == ios[i].toLowerCase()){
-            platform = "IOS";
-        } else {
-            platform = "Android";
-        }
-
-        // TODO: Test temporary data
-        let temp = [];
-        temp = ios[i].toLowerCase();
-        console.log(temp);
-    }
-
-    // console.log(brand + " " + ios[6].toLowerCase());
-    // console.log(brand == ios[6].toLowerCase());
-    console.log(ios.length);
     
     return platform;
 
