@@ -26,6 +26,7 @@ const ios = [
     "Iphone 8 Plus",
     "Iphone 8 +",
     "Iphone X Pro",
+    "Iphone X",
     "Iphone 10",
     "Iphone XR",
     "Iphone XS",
@@ -105,13 +106,11 @@ const definePlatform = async (payload) => {
         return parseInt(res.jumlah_antrian)
     });
 
-
-
-    if (queue >= 3) {
+    if (queue >= 3 || queue.length === 0) {
 
         //TODO: Update status in orders table
-        // let statusOrder = await executeQuery(`UPDATE orders SET platform=?, status=? WHERE id=${idOrder}`, [platform, status[1]]);
-        console.log('maks order')
+        let statusOrder = await executeQuery(`UPDATE orders SET platform=?, status=? WHERE id=${idOrder}`, [platform, status[1]]);
+        // console.log('maks order');
     } else {
         //TODO: Technician Queue
         queue = parseInt(queue) + 1;
@@ -124,11 +123,12 @@ const definePlatform = async (payload) => {
 
         //TODO: Update Order
         let updateOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, id_teknisi=?, antrian=?, serviceAt=? WHERE id=${idOrder}`, [platform, status[2], idTechnician, totalQueue, dateTime]);
+        // console.log('masuk');
     }
 
 
-    // console.log(queue);
-    return technician;
+    console.log(queue);
+    return queue;
 
 };
 
