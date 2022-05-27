@@ -49,11 +49,24 @@ const ios = [
     "Iphone SE 2022",
 ];
 
-// const add = (payload) => {
-    
-// };
+    //TODO: To instance Total Queue
+    let totalQueue = 0;
+
 
 const definePlatform = async (payload) => {
+
+    //TODO: Create Datetime
+    var currentDate = new Date();
+
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth();
+    var day = currentDate.getDay();
+
+    var hour = currentDate.getHours();
+    var minute = currentDate.getMinutes();
+    var second = currentDate.getSeconds();
+
+    var dateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
     //TODO: Insert data to order
     const insertOrder = await executeQuery(
@@ -61,15 +74,15 @@ const definePlatform = async (payload) => {
         [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.keluhan]);
 
     //TODO: Get ID in last row
-    const getId = await executeQuery("SELECT MAX(id) AS id FROM orders",[]);
+    const getId = await executeQuery("SELECT MAX(id) AS id FROM orders", []);
 
     //TODO: Mapping to ID
     const idOrder = getId.map(res => {
         return res.id
-    }) 
+    })
 
     //TODO: Get brand by ID
-    const getBrand = await executeQuery("SELECT brand_hp FROM orders WHERE id=?",[idOrder]);
+    const getBrand = await executeQuery("SELECT brand_hp FROM orders WHERE id=?", [idOrder]);
 
     //TODO: Mapping to Brand
     let brand = getBrand.map(res => {
@@ -77,13 +90,45 @@ const definePlatform = async (payload) => {
     });
 
     //TODO: Define platform
-    const platform = ios.find(item => brand[0] == item.toLowerCase()) ? 'IOS' : 'Android';
+    let platform = ios.find(item => brand[0] == item.toLowerCase()) ? 'IOS' : 'Android';
 
-    //TODO: Update Order
-    const updateOrder = await executeQuery(`UPDATE orders SET platform=? WHERE id=${idOrder}`, [platform]);
+    //TODO: Get a Technician
+    let technician = await executeQuery("SELECT * FROM teknisi WHERE jumlah_antrian != 3 and platform =? LIMIT 1", [platform]);
 
-    console.log(idOrder);
-    return updateOrder;
+    //TODO: Mapping to ID Technician
+    let idTechnician = technician.map(res => {
+        return res.id
+    })
+
+    //TODO: Mapping to queue
+    let queue = technician.map(res => {
+        return parseInt(res.jumlah_antrian)
+    });
+
+
+
+    if (queue >= 3) {
+
+        //TODO: Update status in orders table
+        // let statusOrder = await executeQuery(`UPDATE orders SET platform=?, status=? WHERE id=${idOrder}`, [platform, status[1]]);
+        console.log('maks order')
+    } else {
+        //TODO: Technician Queue
+        queue = parseInt(queue) + 1;
+
+        //TODO: Total Queue
+        totalQueue = parseInt(totalQueue) + 1;
+
+        //TODO: Update Queue in Teknisi Table
+        let updateTechnician = await executeQuery(`UPDATE teknisi SET jumlah_antrian=? WHERE id=${idTechnician}`, [queue]);
+
+        //TODO: Update Order
+        let updateOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, id_teknisi=?, antrian=?, serviceAt=? WHERE id=${idOrder}`, [platform, status[2], idTechnician, totalQueue, dateTime]);
+    }
+
+
+    // console.log(queue);
+    return technician;
 
 };
 
