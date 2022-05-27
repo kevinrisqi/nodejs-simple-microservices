@@ -49,43 +49,48 @@ const ios = [
     "Iphone SE 2022",
 ];
 
-const add = (payload) => {
+// const add = (payload) => {
     
-};
+// };
 
-const definePlatform = async () => {
+const definePlatform = async (payload) => {
 
-    let result = executeQuery(
-        "INSERT INTO order (nama, alamat, email, nomer_hp, brand_hp, platform, keluhan, antrian,status) VALUES (?,?,?,?,?,?,?,?,?)", [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.platform, payload.keluhan, payload.antrian, payload.status]
-    );
+    //TODO: Insert data to order
+    const insertOrder = await executeQuery(
+        "INSERT INTO orders(nama, alamat, email, nomer_hp, brand_hp, keluhan) VALUES (?,?,?,?,?,?)",
+        [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.keluhan]);
 
-    let getBrand = await executeQuery("SELECT MAX(id) FROM order",[]);
+    //TODO: Get ID in last row
+    const getId = await executeQuery("SELECT MAX(id) AS id FROM orders",[]);
 
-    //TODO: Dummy Object
-    // const brand = [
-    //     { brand_hp: "samsung", platform: "android", origin: "south korea" },
-    //     { brand_hp: "iphone 7", platform: "ios", origin: "United States" }
-    // ];
+    //TODO: Mapping to ID
+    const idOrder = getId.map(res => {
+        return res.id
+    }) 
 
-    //TODO: Mapping
+    //TODO: Get brand by ID
+    const getBrand = await executeQuery("SELECT brand_hp FROM orders WHERE id=?",[idOrder]);
+
+    //TODO: Mapping to Brand
     let brand = getBrand.map(res => {
         return res.brand_hp.toLowerCase();
     });
 
-    // let brand = ['iphone 3'];
-
     //TODO: Define platform
     const platform = ios.find(item => brand[0] == item.toLowerCase()) ? 'IOS' : 'Android';
 
-    return platform;
+    //TODO: Update Order
+    const updateOrder = await executeQuery(`UPDATE orders SET platform=? WHERE id=${idOrder}`, [platform]);
+
+    console.log(idOrder);
+    return updateOrder;
 
 };
 
-definePlatform().then(res => {
-    console.log(res);
-})
+// definePlatform().then(res => {
+//     console.log(res);
+// })
 
 module.exports = {
-    add,
     definePlatform,
 };
