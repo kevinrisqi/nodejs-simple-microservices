@@ -50,29 +50,19 @@ const ios = [
     "Iphone SE 2022",
 ];
 
-    //TODO: To instance Total Queue
-    let totalQueue = 0;
+//TODO: To instance Total Queue
+let totalQueue = 0;
 
 
 const definePlatform = async (payload) => {
 
     //TODO: Create Datetime
-    var currentDate = new Date();
-
-    var year = currentDate.getFullYear();
-    var month = currentDate.getMonth();
-    var day = currentDate.getDay();
-
-    var hour = currentDate.getHours();
-    var minute = currentDate.getMinutes();
-    var second = currentDate.getSeconds();
-
-    var dateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    let dateTime = getDate();
 
     //TODO: Insert data to order
     const insertOrder = await executeQuery(
-        "INSERT INTO orders(nama, alamat, email, nomer_hp, brand_hp, keluhan) VALUES (?,?,?,?,?,?)",
-        [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.keluhan]);
+        "INSERT INTO orders(nama, alamat, email, nomer_hp, brand_hp, keluhan, id_kerusakan) VALUES (?,?,?,?,?,?,?)",
+        [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.keluhan, payload.id_kerusakan]);
 
     //TODO: Get ID in last row
     const getId = await executeQuery("SELECT MAX(id) AS id FROM orders", []);
@@ -133,6 +123,26 @@ const definePlatform = async (payload) => {
     return queue;
 
 };
+
+const getDate = () => {
+    //TODO: Create Datetime
+    var currentDate = new Date();
+
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1;
+    var day = currentDate.getUTCDate();
+    var hour = currentDate.getHours();
+    var minute = currentDate.getMinutes();
+    var second = currentDate.getSeconds();
+
+    var dateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    // console.log(dateTime);
+
+    return dateTime;
+}
+
+// console.log(getDate());
+
 
 // definePlatform().then(res => {
 //     console.log(res);
