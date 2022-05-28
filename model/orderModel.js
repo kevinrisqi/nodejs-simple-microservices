@@ -107,9 +107,11 @@ const definePlatform = async (payload) => {
     });
 
     if (queue >= 3 || queue.length === 0) {
+        //TODO: Total Queue
+        totalQueue = parseInt(totalQueue) + 1;
 
         //TODO: Update status in orders table
-        let statusOrder = await executeQuery(`UPDATE orders SET platform=?, status=? WHERE id=${idOrder}`, [platform, status[1]]);
+        let statusOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, antrian=? WHERE id=${idOrder}`, [platform, status[1], totalQueue]);
         // console.log('maks order');
     } else {
         //TODO: Technician Queue
@@ -122,7 +124,7 @@ const definePlatform = async (payload) => {
         let updateTechnician = await executeQuery(`UPDATE teknisi SET jumlah_antrian=? WHERE id=${idTechnician}`, [queue]);
 
         //TODO: Update Order
-        let updateOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, id_teknisi=?, antrian=?, serviceAt=? WHERE id=${idOrder}`, [platform, status[2], idTechnician, totalQueue, dateTime]);
+        let updateOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, antrian=?, id_teknisi=?, serviceAt=? WHERE id=${idOrder}`, [platform, status[2], totalQueue, idTechnician, dateTime]);
         // console.log('masuk');
     }
 
