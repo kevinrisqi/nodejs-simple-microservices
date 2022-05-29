@@ -91,10 +91,19 @@ const definePlatform = async (payload) => {
         return res.id
     })
 
+
     //TODO: Mapping to queue
     let queue = technician.map(res => {
         return parseInt(res.jumlah_antrian)
     });
+
+    //TODO: Get duration from kerusakan table
+    let damage = await executeQuery(`SELECT * from orders JOIN kerusakan on kerusakan.id = orders.id_kerusakan WHERE orders.id IN (SELECT MAX(orders.id) FROM orders)`, []);
+
+    //TODO: Mapping to Lama Pengerjaan
+    let durationTechnician = damage.map(res => {
+        return parseInt(res.lama_pengerjaan);
+    })
 
     if (queue >= 3 || queue.length === 0) {
         //TODO: Total Queue
@@ -110,16 +119,63 @@ const definePlatform = async (payload) => {
         //TODO: Total Queue
         totalQueue = parseInt(totalQueue) + 1;
 
+        //TODO: Instance duration work
+        var durationWork = 0;
+
+        switch (queue) {
+            case 1:
+                durationWork = parseInt(durationTechnician);
+                console.log('case 1 is success');
+                break;
+            case 2:
+                //TODO: Get -1 Previous Row
+                let previousRow = await executeQuery(`SELECT * FROM orders WHERE id IN (SELECT MAX(id) - 1 FROM orders)`);
+
+                //TODO: Mapping to first duration from order table
+                let duration = previousRow.map(res => {
+                    return parseInt(res.lama_pengerjaan);
+                });
+
+                //TODO: Calculate total duration work by queue
+                durationWork = parseInt(durationTechnician) + parseInt(duration);
+                console.log('case 2 is success')
+                break;
+            case 3:
+                //TODO: Get -1 Previous Row
+                let previousFirstRow = await executeQuery(`SELECT * FROM orders WHERE id IN (SELECT MAX(id) - 1 FROM orders)`);
+
+                //TODO: Mapping to first duration from order table
+                let firstDuration = previousFirstRow.map(res => {
+                    return parseInt(res.lama_pengerjaan);
+                });
+
+                //TODO: Get -2 Previous Row
+                let previousSecondRow = await executeQuery(`SELECT * FROM orders WHERE id IN (SELECT MAX(id) - 2 FROM orders)`);
+
+                //TODO: Mapping to second duration from order table
+                let secondDuration = previousSecondRow.map(res => {
+                    return parseInt(res.lama_pengerjaan);
+                });
+
+                //TODO: Calculate total duration work by queue
+                durationWork = parseInt(durationTechnician) + parseInt(firstDuration) + parseInt(secondDuration);
+                console.log('case 3 is success')
+                break;
+            default:
+                break;
+        }
+
         //TODO: Update Queue in Teknisi Table
         let updateTechnician = await executeQuery(`UPDATE teknisi SET jumlah_antrian=? WHERE id=${idTechnician}`, [queue]);
 
         //TODO: Update Order
-        let updateOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, antrian=?, id_teknisi=?, serviceAt=? WHERE id=${idOrder}`, [platform, status[2], totalQueue, idTechnician, dateTime]);
+        let updateOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, antrian=?, id_teknisi=?, serviceAt=?, lama_pengerjaan=? WHERE id=${idOrder}`, [platform, status[2], totalQueue, idTechnician, dateTime, durationWork]);
         // console.log('masuk');
     }
 
 
-    console.log(queue);
+    console.log(`Antrian ke ${queue} || Lama Pengerjaan : ${durationWork} || Durasi Teknisi: ${durationTechnician}`);
+    // console.log(queue);
     return queue;
 
 };
