@@ -10,6 +10,17 @@ const addOrder = async (req, reply) => {
     }
 };
 
+const getOrder = async (req, reply) => {
+    let payload = req.params.id;
+    try {
+        let result = await orderModel.getOrderbyPhone(payload);
+        reply.status(200).send(result);
+    } catch (error) {
+        reply.status(400).send(error);
+    }
+}
+
 module.exports = {
     addOrder,
+    getOrder,
 }

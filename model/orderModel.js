@@ -187,6 +187,14 @@ const definePlatform = async (payload) => {
 
 };
 
+const getOrderbyPhone = async (payload) => {
+
+    const result = await executeQuery(`SELECT orders.nama as nama_user, orders.alamat, orders.brand_hp, orders.keluhan, orders.status, teknisi.nama as nama_teknisi, kerusakan.jenis_kerusakan FROM orders JOIN kerusakan on orders.id_kerusakan = kerusakan.id LEFT JOIN teknisi on teknisi.id = orders.id_teknisi WHERE orders.nomer_hp = ?`, [payload]);
+
+    console.log(result);
+    return result;
+}
+
 const getDate = () => {
     //TODO: Create Datetime
     var currentDate = new Date();
@@ -213,4 +221,5 @@ const getDate = () => {
 
 module.exports = {
     definePlatform,
+    getOrderbyPhone,
 };
