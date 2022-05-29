@@ -105,6 +105,8 @@ const definePlatform = async (payload) => {
         return parseInt(res.lama_pengerjaan);
     })
 
+    var result = '';
+
     if (queue >= 3 || queue.length === 0) {
         //TODO: Total Queue
         totalQueue = parseInt(totalQueue) + 1;
@@ -112,6 +114,8 @@ const definePlatform = async (payload) => {
         //TODO: Update status in orders table
         let statusOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, antrian=? WHERE id=${idOrder}`, [platform, status[1], totalQueue]);
         // console.log('maks order');
+
+        result = await executeQuery(`SELECT nama, nomer_hp, brand_hp, keluhan, status FROM orders WHERE id=${idOrder}`, []);
     } else {
         //TODO: Technician Queue
         queue = parseInt(queue) + 1;
@@ -169,14 +173,17 @@ const definePlatform = async (payload) => {
         let updateTechnician = await executeQuery(`UPDATE teknisi SET jumlah_antrian=? WHERE id=${idTechnician}`, [queue]);
 
         //TODO: Update Order
-        let updateOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, antrian=?, id_teknisi=?, serviceAt=?, lama_pengerjaan=? WHERE id=${idOrder}`, [platform, status[2], totalQueue, idTechnician, dateTime, durationWork]);
+        let updateOrder = await executeQuery(`UPDATE orders SET platform=?, status=?, antrian=?, id_teknisi=?, serviceAt=?, lama_pengerjaan=? WHERE id=${idOrder}`, [platform, status[2], queue, idTechnician, dateTime, durationWork]);
         // console.log('masuk');
-    }
 
+        //TODO: User retrieve data after insert order if user already get teknisi
+        result = await executeQuery(`SELECT teknisi.id, teknisi.nama, orders.lama_pengerjaan, kerusakan.harga from orders join teknisi on orders.id_teknisi = teknisi.id JOIN kerusakan on orders.id_kerusakan = kerusakan.id WHERE orders.id=${idOrder}`,[]);
+    }
+    
 
     console.log(`Antrian ke ${queue} || Lama Pengerjaan : ${durationWork} || Durasi Teknisi: ${durationTechnician}`);
-    // console.log(queue);
-    return queue;
+    console.log(result);
+    return result;
 
 };
 
