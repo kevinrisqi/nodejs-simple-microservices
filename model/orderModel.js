@@ -59,6 +59,7 @@ const definePlatform = async (payload) => {
     //TODO: Create Datetime
     let dateTime = getDate();
 
+    
     //TODO: Insert data to order
     const insertOrder = await executeQuery(
         "INSERT INTO orders(nama, alamat, email, nomer_hp, brand_hp, keluhan, id_kerusakan) VALUES (?,?,?,?,?,?,?)",
@@ -195,6 +196,39 @@ const getOrderbyPhone = async (payload) => {
     return result;
 }
 
+const getOrderbyStatus = async (payload) => {
+
+    const result = await executeQuery('SELECT * FROM orders WHERE status = ?', [payload]);
+
+    console.log(result);
+    return result;
+}
+
+const changeStatusbyTechnician = async (payload) => {
+
+    const updateStatus = await executeQuery(`UPDATE orders SET status=? WHERE id=${payload.id}`, [payload.status]);
+
+    const getDataOrder = await executeQuery(`SELECT * FROM orders WHERE id=?`, [payload.id]);
+
+    var idTechnician = getDataOrder.map(res => {
+        return res.id_teknisi
+    });
+
+    var tempStatus = getDataOrder.map(res => {
+        return res.status
+    })
+
+    if (tempStatus == status[3]) {
+        var minQueue = await executeQuery(`UPDATE teknisi SET jumlah_antrian = (jumlah_antrian - 1) WHERE id=?`, [idTechnician]);
+    } else if (tempStatus == status[2]) {
+
+    }
+
+
+    console.log(minQueue);
+    return minQueue;
+}
+
 const getDate = () => {
     //TODO: Create Datetime
     var currentDate = new Date();
@@ -222,4 +256,6 @@ const getDate = () => {
 module.exports = {
     definePlatform,
     getOrderbyPhone,
+    getOrderbyStatus,
+    changeStatusbyTechnician
 };
