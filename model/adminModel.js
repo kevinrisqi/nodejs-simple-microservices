@@ -5,3 +5,7 @@ const getOrder = async () => {
 
     return queryOrder;
 }
+
+module.exports = {
+    getOrder,
+}

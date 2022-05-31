@@ -8,3 +8,7 @@ const getAllOrder = async (req, reply) => {
         reply.status(400).send(error);
     }
 }
+
+module.exports = {
+    getAllOrder,
+}
