@@ -12,7 +12,14 @@ const getOrderStatus = async (status) => {
     return query;
 }
 
+const getOrderName = async (name) => {
+    const query = await executeQuery("SELECT * FROM orders WHERE nama=?", [name]);
+
+    return query;
+}
+
 module.exports = {
     getOrder,
     getOrderStatus,
+    getOrderName,
 }

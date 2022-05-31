@@ -19,7 +19,18 @@ const getOrderByStatus = async (req, reply) => {
     }
 }
 
+const getOrderByName = async (req, reply) => {
+    let name = req.params.name;
+    try {
+        let result = await adminModel.getOrderName(name);
+        reply.status(200).send(result);
+    } catch (error) {
+        reply.status(400).send(error);
+    }
+}
+
 module.exports = {
     getAllOrder,
     getOrderByStatus,
+    getOrderByName
 }
