@@ -54,24 +54,33 @@ const ios = [
 let totalQueue = 0;
 
 
-const definePlatform = async (payload) => {
+const addOrder = async (payload) => {
 
     //TODO: Create Datetime
     let dateTime = getDate();
 
-    
-    //TODO: Insert data to order
-    const insertOrder = await executeQuery(
-        "INSERT INTO orders(nama, alamat, email, nomer_hp, brand_hp, keluhan, id_kerusakan) VALUES (?,?,?,?,?,?,?)",
-        [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.keluhan, payload.id_kerusakan]);
+    // console.log("Passing data: " + payload.id + payload.nama);
 
-    //TODO: Get ID in last row
-    const getId = await executeQuery("SELECT MAX(id) AS id FROM orders", []);
+    //TODO: Check if payload.id not null then using update method else insert method
+    if (payload.id == null) {
+        //TODO: Insert data to order
+        const insertOrder = await executeQuery(
+            "INSERT INTO orders(nama, alamat, email, nomer_hp, brand_hp, keluhan, id_kerusakan) VALUES (?,?,?,?,?,?,?)",
+            [payload.nama, payload.alamat, payload.email, payload.nomer_hp, payload.brand_hp, payload.keluhan, payload.id_kerusakan]);
 
-    //TODO: Mapping to ID
-    const idOrder = getId.map(res => {
-        return res.id
-    })
+        //TODO: Get ID in last row
+        const getId = await executeQuery("SELECT MAX(id) AS id FROM orders", []);
+
+        //TODO: Mapping to ID
+        var idOrder = getId.map(res => {
+            return res.id
+        })
+
+    } else {
+        idOrder = payload.id;
+    }
+
+    // console.log(idOrder)
 
     //TODO: Get brand by ID
     const getBrand = await executeQuery("SELECT brand_hp FROM orders WHERE id=?", [idOrder]);
@@ -178,9 +187,9 @@ const definePlatform = async (payload) => {
         // console.log('masuk');
 
         //TODO: User retrieve data after insert order if user already get teknisi
-        result = await executeQuery(`SELECT teknisi.id, teknisi.nama, orders.lama_pengerjaan, kerusakan.harga from orders join teknisi on orders.id_teknisi = teknisi.id JOIN kerusakan on orders.id_kerusakan = kerusakan.id WHERE orders.id=${idOrder}`,[]);
+        result = await executeQuery(`SELECT teknisi.id, teknisi.nama, orders.lama_pengerjaan, kerusakan.harga from orders join teknisi on orders.id_teknisi = teknisi.id JOIN kerusakan on orders.id_kerusakan = kerusakan.id WHERE orders.id=${idOrder}`, []);
     }
-    
+
 
     console.log(`Antrian ke ${queue} || Lama Pengerjaan : ${durationWork} || Durasi Teknisi: ${durationTechnician}`);
     console.log(result);
@@ -221,7 +230,7 @@ const changeStatusbyTechnician = async (payload) => {
     if (tempStatus == status[3]) {
         var minQueue = await executeQuery(`UPDATE teknisi SET jumlah_antrian = (jumlah_antrian - 1) WHERE id=?`, [idTechnician]);
     } else if (tempStatus == status[2]) {
-
+        addOrder({ id: payload.id });
     }
 
 
@@ -249,12 +258,12 @@ const getDate = () => {
 // console.log(getDate());
 
 
-// definePlatform().then(res => {
+// addOrder().then(res => {
 //     console.log(res);
 // })
 
 module.exports = {
-    definePlatform,
+    addOrder,
     getOrderbyPhone,
     getOrderbyStatus,
     changeStatusbyTechnician
