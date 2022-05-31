@@ -4,11 +4,13 @@ const teknisiRoutes = require('./routes/teknisiRoutes');
 const userRoutes = require('./routes/userRoutes');
 const kerusakanRoutes = require('./routes/kerusakanRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 fastify.register(teknisiRoutes);
 fastify.register(userRoutes);
 fastify.register(kerusakanRoutes);
 fastify.register(orderRoutes);
+fastify.register(adminRoutes);
 
 
 // create server
