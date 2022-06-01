@@ -1,5 +1,7 @@
 // import fastify
 const fastify = require("fastify")();
+const Swagger = require('./swagger_option');
+
 const teknisiRoutes = require('./routes/teknisiRoutes');
 const userRoutes = require('./routes/userRoutes');
 const kerusakanRoutes = require('./routes/kerusakanRoutes');
