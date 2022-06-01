@@ -8,6 +8,9 @@ const kerusakanRoutes = require('./routes/kerusakanRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
+// swagger configuration
+fastify.register(require('fastify-swagger'), Swagger.options);
+
 fastify.register(teknisiRoutes);
 fastify.register(userRoutes);
 fastify.register(kerusakanRoutes);
@@ -22,6 +25,7 @@ const startServer = async () => {
       if (err) {
         return err;
       }
+      fastify.swagger();
       console.log(`server is running on ${port}`);
     });
   } catch (err) {
