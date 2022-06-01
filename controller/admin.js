@@ -27,6 +27,15 @@ const getSpesificOrder = async (req, reply) => {
     }
 }
 
+const getSpesificTechnician = async (req, reply) => {
+    try {
+        let result = await adminModel.getSpesificTechnician();
+        reply.status(200).send(result);
+    } catch (error) {
+        reply.status(400).send(error);
+    }
+}
+
 const getOrderByStatus = async (req, reply) => {
     let status = req.params.status;
     try {
@@ -52,5 +61,6 @@ module.exports = {
     getSpesificOrder,
     getOrderByStatus,
     getOrderByName,
-    getAllTechnician
+    getAllTechnician,
+    getSpesificTechnician
 }

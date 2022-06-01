@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 27 Bulan Mei 2022 pada 18.22
+-- Waktu pembuatan: 01 Jun 2022 pada 17.04
 -- Versi server: 8.0.29-0ubuntu0.20.04.3
 -- Versi PHP: 7.4.3
 
@@ -40,7 +40,10 @@ CREATE TABLE `kerusakan` (
 --
 
 INSERT INTO `kerusakan` (`id`, `jenis_kerusakan`, `lama_pengerjaan`, `harga`) VALUES
-(1, 'Mati total', 120, 300000);
+(1, 'Mati total', 120, 300000),
+(3, 'Bootloop', 90, 250000),
+(4, 'Batre Bocor', 60, 100000),
+(5, 'Layar Retak', 60, 200000);
 
 -- --------------------------------------------------------
 
@@ -58,6 +61,7 @@ CREATE TABLE `orders` (
   `keluhan` varchar(50) NOT NULL,
   `platform` varchar(20) DEFAULT NULL,
   `antrian` int DEFAULT '0',
+  `lama_pengerjaan` int DEFAULT '0',
   `id_kerusakan` int DEFAULT NULL,
   `id_teknisi` int DEFAULT NULL,
   `status` varchar(30) DEFAULT NULL,
@@ -68,32 +72,35 @@ CREATE TABLE `orders` (
 -- Dumping data untuk tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `nama`, `alamat`, `email`, `nomer_hp`, `brand_hp`, `keluhan`, `platform`, `antrian`, `id_kerusakan`, `id_teknisi`, `status`, `serviceAt`) VALUES
-(24, 'Dono', 'Jl Melati', 'dono@gmail.com', '089768868689', 'Iphone 5', 'Tidak nyala', 'IOS', 0, NULL, NULL, NULL, NULL),
-(25, 'Dino', 'Jl Melati', 'dino@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 0, NULL, NULL, NULL, NULL),
-(26, 'Dani', 'Jl Melati', 'dani@gmail.com', '0827885487', 'Iphone 8 plus', 'Baterai Boros', 'IOS', 0, NULL, NULL, NULL, NULL),
-(27, 'Dina', 'Jl Melati', 'dina@gmail.com', '0827885487', 'Iphone 6', 'Baterai Boros', 'IOS', 0, NULL, NULL, NULL, NULL),
-(28, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Oppo', 'Baterai Boros', 'Android', 0, NULL, NULL, NULL, NULL),
-(29, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Oppo', 'Baterai Boros', 'Android', 0, NULL, NULL, NULL, '2022-04-05 16:09:05'),
-(42, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Oppo', 'Baterai Boros', 'Android', 1, NULL, 1, 'Sedang dikerjakan', '2022-04-05 16:50:57'),
-(43, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Iphone', 'Baterai Boros', 'IOS', 2, NULL, 5, 'Sedang dikerjakan', '2022-04-05 16:51:25'),
-(44, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 3, NULL, 1, 'Sedang dikerjakan', '2022-04-05 16:51:50'),
-(45, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 4, NULL, 1, 'Sedang dikerjakan', '2022-04-05 16:51:52'),
-(46, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL),
-(47, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 1, NULL, 4, 'Sedang dikerjakan', '2022-04-05 17:28:54'),
-(48, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 2, NULL, 4, 'Sedang dikerjakan', '2022-04-05 17:29:23'),
-(49, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 3, NULL, 4, 'Sedang dikerjakan', '2022-04-05 17:29:40'),
-(50, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 4, NULL, 7, 'Sedang dikerjakan', '2022-04-05 17:29:41'),
-(51, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 5, NULL, 7, 'Sedang dikerjakan', '2022-04-05 17:30:12'),
-(52, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', 'Android', 6, NULL, 7, 'Sedang dikerjakan', '2022-04-05 17:30:13'),
-(53, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL),
-(54, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL),
-(55, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL),
-(56, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL),
-(57, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL),
-(58, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL),
-(59, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL),
-(60, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Samsung', 'Baterai Boros', NULL, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `orders` (`id`, `nama`, `alamat`, `email`, `nomer_hp`, `brand_hp`, `keluhan`, `platform`, `antrian`, `lama_pengerjaan`, `id_kerusakan`, `id_teknisi`, `status`, `serviceAt`) VALUES
+(170, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 1, 90, 3, 1, 'Sedang dikerjakan', '2022-05-29 15:15:41'),
+(171, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 2, 180, 3, 1, 'Sedang dikerjakan', '2022-05-29 15:15:42'),
+(172, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 360, 3, 1, 'Sedang dikerjakan', '2022-05-29 15:15:43'),
+(173, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 1, 90, 3, 4, 'Sedang dikerjakan', '2022-05-29 15:15:44'),
+(174, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 2, 180, 3, 4, 'Sedang dikerjakan', '2022-05-29 15:15:45'),
+(175, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 360, 3, 4, 'Sedang dikerjakan', '2022-05-29 15:15:46'),
+(176, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 1, 90, 3, 7, 'Sedang dikerjakan', '2022-05-29 15:15:47'),
+(177, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 2, 180, 3, 7, 'Sedang dikerjakan', '2022-05-29 15:15:48'),
+(178, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 360, 3, 7, 'Sedang dikerjakan', '2022-05-29 15:15:49'),
+(179, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 10, 0, 3, NULL, 'Menunggu antrian', NULL),
+(180, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', NULL, 0, 0, 3, NULL, NULL, NULL),
+(181, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 12, 0, 3, NULL, 'Menunggu antrian', NULL),
+(182, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 90, 3, 1, 'Sedang dikerjakan', '2022-05-29 16:58:39'),
+(183, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 1, 90, 3, 1, 'Sedang dikerjakan', '2022-05-29 17:00:04'),
+(184, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 2, 180, 3, 1, 'Sedang dikerjakan', '2022-05-29 17:00:08'),
+(185, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 360, 3, 1, 'Sedang dikerjakan', '2022-05-29 17:00:09'),
+(186, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 17, 0, 3, NULL, 'Menunggu antrian', NULL),
+(187, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 1, 90, 3, 1, 'Sedang dikerjakan', '2022-05-29 17:15:34'),
+(188, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 2, 180, 3, 1, 'Sedang dikerjakan', '2022-05-29 17:17:21'),
+(189, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 360, 3, 1, 'Sedang dikerjakan', '2022-05-29 17:17:38'),
+(190, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 2, 0, 3, NULL, 'Menunggu antrian', NULL),
+(191, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 1, 90, 3, 1, 'Sedang dikerjakan', '2022-05-29 18:21:08'),
+(192, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 2, 180, 3, 1, 'Sedang dikerjakan', '2022-05-29 18:22:33'),
+(193, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 360, 3, 1, 'Sedang dikerjakan', '2022-05-29 18:23:13'),
+(194, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 0, 3, NULL, 'Menunggu antrian', NULL),
+(195, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', NULL, 0, 0, 3, NULL, NULL, NULL),
+(196, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 90, 3, 1, 'Selesai', '2022-05-31 17:50:01'),
+(197, 'Lala', 'Jl Mawar', 'lala@gmail.com', '0827885487', 'Huawei', 'Tidak masuk home', 'Android', 3, 180, 3, 1, 'Sedang dikerjakan', '2022-05-31 17:52:54');
 
 -- --------------------------------------------------------
 
@@ -116,7 +123,7 @@ CREATE TABLE `teknisi` (
 INSERT INTO `teknisi` (`id`, `nama`, `spesialis`, `platform`, `jumlah_antrian`) VALUES
 (1, 'Gunawan', 'Samsung', 'Android', 3),
 (4, 'Bobby', 'Xiaomi', 'Android', 3),
-(5, 'John', 'Iphone', 'IOS', 1),
+(5, 'John', 'Iphone', 'IOS', 0),
 (6, 'Roger', 'IPAD', 'IOS', 0),
 (7, 'Satrio', 'Oppo', 'Android', 3);
 
@@ -183,13 +190,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `kerusakan`
 --
 ALTER TABLE `kerusakan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 
 --
 -- AUTO_INCREMENT untuk tabel `teknisi`
