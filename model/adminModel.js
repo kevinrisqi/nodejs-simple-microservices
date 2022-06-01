@@ -6,8 +6,8 @@ const getOrder = async () => {
     return query;
 }
 
-const get = async () => {
-    const query = await executeQuery("SELECT * FROM orders", []);
+const getTechnician = async () => {
+    const query = await executeQuery("SELECT * FROM teknisi", []);
 
     return query;
 }
@@ -35,4 +35,5 @@ module.exports = {
     getSpesificOrder,
     getOrderStatus,
     getOrderName,
+    getTechnician
 }
