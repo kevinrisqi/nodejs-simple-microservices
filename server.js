@@ -11,12 +11,15 @@ const adminRoutes = require('./routes/adminRoutes');
 // swagger configuration
 fastify.register(require('fastify-swagger'), Swagger.options);
 
+fastify.register(require('fastify-cors'), { 
+  // put your options here
+})
+
 fastify.register(teknisiRoutes);
 fastify.register(userRoutes);
 fastify.register(kerusakanRoutes);
 fastify.register(orderRoutes);
 fastify.register(adminRoutes);
-
 
 // create server
 const startServer = async () => {
