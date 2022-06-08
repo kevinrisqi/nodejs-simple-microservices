@@ -1,11 +1,12 @@
-const kerusakan= require('../controller/kerusakan');
+const kerusakan = require('../controller/kerusakan');
+const docsKerusakan = require('../docs/swagger/docsKerusakan');
 
 async function routes(fastify) {
-    fastify.get('/kerusakan', kerusakan.getAllKerusakan);
-    fastify.get('/kerusakan/:id', kerusakan.getKerusakanById);
-    fastify.delete('/deleteKerusakan/:id', kerusakan.deleteKerusakanById);
-    fastify.post('/addKerusakan', kerusakan.addKerusakan);
-    fastify.put('/updateKerusakan/:id', kerusakan.updateKerusakan);
+    fastify.get('/kerusakan', docsKerusakan.findAllKerusakan, kerusakan.getAllKerusakan);
+    fastify.get('/kerusakan/:id', docsKerusakan.findKerusakanByID, kerusakan.getKerusakanById);
+    fastify.post('/addKerusakan', docsKerusakan.addKerusakan, kerusakan.addKerusakan);
+    fastify.put('/updateKerusakan/:id', docsKerusakan.updateKerusakan, kerusakan.updateKerusakan);
+    fastify.delete('/deleteKerusakan/:id', docsKerusakan.deleteKerusakan, kerusakan.deleteKerusakanById);
 }
 
 module.exports = routes;
