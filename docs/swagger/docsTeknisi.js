@@ -13,12 +13,17 @@ const findAllTeknisi = {
                     type: 'string'
                 }
             },
-            properties: {
-
-            }
+            properties: {}
         },
         400: {
-            description: 'Failed to send Response'
+            description: 'Failed to send Response',
+            type: 'object',
+            headers: {
+                'Access-Control-Allow-Origin': {
+                    type: 'string'
+                }
+            },
+            properties: {}
         }
     }
 
@@ -77,7 +82,13 @@ const deleteTeknisi = {
             }
         },
         400: {
-            description: 'Operation Failed'
+            description: 'Operation Failed',
+            properties: {},
+            headers: {
+                'Access-Control-Allow-Origin': {
+                    type: 'string'
+                }
+            }
         }
     }
 }
@@ -86,24 +97,29 @@ const insertTeknisi = {
     schema: {
         summary: 'Add Teknisi',
         description: 'Add Teknisi',
-        params: {
-            description: 'Delete Teknisi By Id',
+        params: {},
+        body: {
+            description: 'to Get response body',
             type: 'object',
             properties: {
-                body: { type: 'string' }
+                nama: {
+                    type: 'string'
+                },
+                spesialis: {
+                    type: 'string'
+                },
+                platform: {
+                    type: 'string'
+                },
+                jumlah_antrian: {
+                    type: 'number'
+                }
             }
         },
     },
-    // parameters: {
-    //     name: "body",
-    //     in: "body",
-    //     paramType: "body",
-    //     description: "body for the POST request",
-    //     required: false
-    // },
     response: {
         200: {
-            description: 'Operation Success',
+            description: 'Succesful Response',
             type: 'object',
             properties: {},
             headers: {
@@ -113,14 +129,80 @@ const insertTeknisi = {
             }
         },
         400: {
-            description: 'Operation Failed'
+            description: 'Failed Response',
+            type: 'object',
+            properties: {},
+            headers: {
+                'Access-Control-Allow-Origin': {
+                    type: 'string'
+                }
+            }
         }
     }
+
 }
+
+const updateTeknisi = {
+    schema: {
+        summary: 'Update Teknisi',
+        description: 'Update Teknisi',
+        params: {
+            description: 'Id to get spesific teknisi',
+            type: 'object',
+            properties: {
+                id: { type: 'number' }
+            }
+        },
+        body: {
+            description: 'to Get response body',
+            type: 'object',
+            properties: {
+                nama: {
+                    type: 'string'
+                },
+                spesialis: {
+                    type: 'string'
+                },
+                platform: {
+                    type: 'string'
+                },
+                jumlah_antrian: {
+                    type: 'number'
+                }
+            }
+        },
+    },
+    response: {
+        200: {
+            description: 'Succesful Response',
+            type: 'object',
+            properties: {},
+            headers: {
+                'Access-Control-Allow-Origin': {
+                    type: 'string'
+                }
+            }
+        },
+        400: {
+            description: 'Failed Response',
+            type: 'object',
+            properties: {},
+            headers: {
+                'Access-Control-Allow-Origin': {
+                    type: 'string'
+                }
+            }
+        }
+    }
+
+}
+
+
 
 module.exports = {
     findAllTeknisi,
     findTeknisiByID,
     deleteTeknisi,
     insertTeknisi,
+    updateTeknisi
 }
