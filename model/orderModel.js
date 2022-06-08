@@ -201,7 +201,7 @@ const getOrderbyPhone = async (payload) => {
 
     const result = await executeQuery(`SELECT orders.nama as nama_user, orders.alamat, orders.brand_hp, orders.keluhan, orders.status, teknisi.nama as nama_teknisi, kerusakan.jenis_kerusakan FROM orders JOIN kerusakan on orders.id_kerusakan = kerusakan.id LEFT JOIN teknisi on teknisi.id = orders.id_teknisi WHERE orders.nomer_hp = ?`, [payload]);
 
-    console.log(result);
+    // console.log(result);
     return result;
 }
 
@@ -209,7 +209,13 @@ const getOrderbyStatus = async (payload) => {
 
     const result = await executeQuery('SELECT * FROM orders WHERE status = ?', [payload]);
 
-    console.log(result);
+    // console.log(result);
+    return result;
+}
+
+const findAllOrder = async () => {
+    const result = await executeQuery('SELECT * FROM orders', []);
+
     return result;
 }
 
@@ -264,7 +270,8 @@ const getDate = () => {
 
 module.exports = {
     addOrder,
+    findAllOrder,
     getOrderbyPhone,
     getOrderbyStatus,
-    changeStatusbyTechnician
+    changeStatusbyTechnician,
 };

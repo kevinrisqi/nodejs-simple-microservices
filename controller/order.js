@@ -10,6 +10,15 @@ const addOrder = async (req, reply) => {
     }
 };
 
+const getAllOrder = async (req, reply) => {
+    try {
+        let result = await orderModel.findAllOrder();
+        reply.status(200).send(result);
+    } catch (error) {
+        reply.status(400).send(error);
+    }
+}
+
 const getOrderPhone = async (req, reply) => {
     let payload = req.params.phone_number;
     try {
@@ -42,6 +51,7 @@ const changeStatusOrder = async (req, reply) => {
 
 module.exports = {
     addOrder,
+    getAllOrder,
     getOrderPhone,
     getOrderStatus,
     changeStatusOrder
