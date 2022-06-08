@@ -103,7 +103,7 @@ const insertTeknisi = {
             type: 'object',
             properties: {
                 nama: {
-                    type: 'string'
+                    type: 'string',
                 },
                 spesialis: {
                     type: 'string'
@@ -158,7 +158,7 @@ const updateTeknisi = {
             type: 'object',
             properties: {
                 nama: {
-                    type: 'string'
+                    type: 'string',
                 },
                 spesialis: {
                     type: 'string'
