@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `db_service_hp`
@@ -33,7 +33,7 @@ CREATE TABLE `kerusakan` (
   `jenis_kerusakan` varchar(50) NOT NULL,
   `lama_pengerjaan` int NOT NULL,
   `harga` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data untuk tabel `kerusakan`
@@ -66,7 +66,7 @@ CREATE TABLE `orders` (
   `id_teknisi` int DEFAULT NULL,
   `status` varchar(30) DEFAULT NULL,
   `serviceAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data untuk tabel `orders`
@@ -114,7 +114,7 @@ CREATE TABLE `teknisi` (
   `spesialis` varchar(30) NOT NULL,
   `platform` varchar(20) NOT NULL,
   `jumlah_antrian` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data untuk tabel `teknisi`
@@ -141,7 +141,7 @@ CREATE TABLE `user` (
   `nomer_hp` varchar(15) NOT NULL,
   `brand_hp` varchar(20) NOT NULL,
   `keluhan` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data untuk tabel `user`
